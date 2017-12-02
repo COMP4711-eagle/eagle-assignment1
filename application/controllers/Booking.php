@@ -14,8 +14,9 @@ class Booking extends Application
         $this->data['pagebody'] = 'booking';
         $this->data['pagetitle'] = 'BirdBrain - Booking';
                         
+        $this->load->model('flightInfo');// load the model
         $this->load->model('airportinfo');
-        $cities = $this->airportinfo->AllCities();   //get cities to display in drop down
+        $cities = $this->airportinfo->allCities();   //get cities to display in drop down
         $this->data['cities'] = $cities;        
         
         // session variables for departure and arrival
@@ -38,26 +39,11 @@ class Booking extends Application
         $this->session->set_userdata('departure', $this->input->get('departure'));
         $this->session->set_userdata('arrival', $this->input->get('arrival'));
         
-        // get flights
-        $this->load->model('flightInfo');// load the model
-        $flights = $this->flightInfo->all(); 
-        
-        $trips = array();
-        foreach($flights as $f) {            
-            if($f->fromcommunity === $this->session->userdata('departure')) {
-                array_push($trips, $f);
-            }
-            else {
-                print($f->from . ": " . $this->session->userdata('departure') . "    d    ");
-            }
-        }
-        
         // sample data
-        //$tripplans = array( array('id' => 'sample trip 1'), 
-        //                    array('id' => 'sample trip 2'));
+        $tripplans = array( array('id' => 'sample trip 1'), 
+                            array('id' => 'sample trip 2'));
         
-        $this->session->set_userdata('trips', $trips); 
-        $this->data['trips'] = $trips;
+        $this->session->set_userdata('trips', $tripplans);    
         redirect('/booking');
     }  
 }
