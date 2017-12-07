@@ -32,7 +32,6 @@ class Airportinfo extends CSV_Model
 
 
     }
-   
     public function base() {
         $hold = (isset($this->_data["eagle"])) ? $this->_data["eagle"] : null;
         $method ='https://wacky.jlparry.com/info/airports/'.$hold->base;
